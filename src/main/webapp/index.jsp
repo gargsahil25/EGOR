@@ -7,7 +7,7 @@
 <title>EGOR</title>
 </head>
 <body>
-<h2>EGOR</h2>
+<h2>EGOR - Planner</h2>
 <s:form>
 	<s:textfield key="planParam" />
 	<s:submit action="createPlanAction" value="Plan"/>
